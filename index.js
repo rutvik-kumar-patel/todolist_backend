@@ -36,7 +36,7 @@ const Noteschema = new Schema({
 const Notes = mongoose.model('Note',Noteschema);
 
 const connectToMongo = () => {
-  mongoose.connect(process.env.MONGO_URI).then((result)=>{
+  mongoose.connect(process.env.MONGODB_URI).then((result)=>{
     console.log("DB Connected Successfully!");
 }).catch(err=>{
     console.log(err);
@@ -69,6 +69,10 @@ const fetchuser = (req, res, next)=>{
 
   }
 }
+
+app.get('/', async (req, res) => {
+  res.status(200).json({"status": "up"})
+})
 
 // Available Routes for user
 app.post('/api/auth/createuser', [
