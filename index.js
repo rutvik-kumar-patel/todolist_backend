@@ -169,7 +169,7 @@ app.get('/api/notes/fetchallnotes', fetchuser, async (req, res) => {
       const notes = await Notes.find({ user: req.user.email })
       res.json(notes)
   } catch (error) {
-      res.ststus(500).send("Some error occured");
+      res.status(500).send("Some error occured");
   }
 })
 
