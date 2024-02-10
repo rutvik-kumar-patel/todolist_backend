@@ -76,8 +76,6 @@ app.get('/', async (req, res) => {
 
 // Available Routes for user
 app.post('/api/auth/createuser', [
-  body('firstName', 'Enter a valid firstName').isLength({ min: 1 }),
-  body('lastName', 'Enter a valid lastName').isLength({ min: 1 }),
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'Password must be atleast 5 characters').isLength({ min: 5 })
 ], async (req, res) => {
@@ -88,8 +86,9 @@ app.post('/api/auth/createuser', [
   try {
     let user = await User.findOne({ email: req.body.email }) // if any email match in database so i get error
     if (user) {
-      return res.status(400).json({ error: "Sorry a user with this email already exists" })
+      return res.status(400).json({ "errors": [{ "msg": "Password must be atleast 5 characters"} ]})
     }
+    // Sorry a user with this email already exists
     const salt = await bcrypt.genSalt(10)
     const secPass = await bcrypt.hash(req.body.password, salt);
 
