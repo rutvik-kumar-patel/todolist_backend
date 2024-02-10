@@ -86,7 +86,7 @@ app.post('/api/auth/createuser', [
   try {
     let user = await User.findOne({ email: req.body.email }) // if any email match in database so i get error
     if (user) {
-      return res.status(400).json({ "errors": [{ "msg": "Password must be atleast 5 characters"} ]})
+      return res.status(400).json({ "errors": [{ "msg": "Sorry a user with this email already exists"} ]})
     }
     // Sorry a user with this email already exists
     const salt = await bcrypt.genSalt(10)
